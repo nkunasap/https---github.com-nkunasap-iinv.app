@@ -443,8 +443,10 @@
                 </div> 
                  
                 <div class="action-buttons"> 
-                    <button class="btn btn-primary" id="update-preview"><i class="fas fa-sync-alt"></i>Update Preview</button> 
-                    <button class="btn btn-secondary" id="generate-pdf"><i class="fas fa-file-pdf"></i>Generate PDF</button> 
+                    <button class="btn btn-primary" id="update-preview" type="button">
+                        <i class="fas fa-sync-alt"></i>Update Preview</button> 
+                    <button class="btn btn-secondary" id="generate-pdf" type="button">
+                        <i class="fas fa-file-pdf"></i>Generate PDF</button> 
                 </div> 
             </div> 
         </div> 
@@ -669,6 +671,64 @@
             const fileName = `invoice_${document.getElementById('preview-invoice number').textContent}.pdf`; 
             doc.save(fileName); 
         } 
+         document.addEventListener("DOMContentLoaded", () => {
+    // Handle update preview
+    document.getElementById("update-preview").addEventListener("click", () => {
+      alert("Preview updated!");
+      // Replace with actual update logic
+    });
+
+    // Handle generate PDF
+    document.getElementById("generate-pdf").addEventListener("click", () => {
+      alert("PDF generated!");
+      // Replace with real PDF generation logic
+       });
+     });
+
+     // Update Preview Logic
+const updatePreviewBtn = document.getElementById('update-preview');
+updatePreviewBtn.addEventListener('click', () => {
+  document.getElementById('preview-from-name').innerText = document.getElementById('input-from-name').value;
+  document.getElementById('preview-from-address').innerText = document.getElementById('input-from-address').value;
+  document.getElementById('preview-to-name').innerText = document.getElementById('input-to-name').value;
+  document.getElementById('preview-to-address').innerText = document.getElementById('input-to-address').value;
+  document.getElementById('preview-notes').innerText = document.getElementById('input-notes').value;
+
+  // Update Items Table
+  const itemsContainer = document.getElementById('preview-items');
+  itemsContainer.innerHTML = '';
+  const itemRows = document.querySelectorAll('.item-row');
+  let subtotal = 0;
+
+  itemRows.forEach(row => {
+    const desc = row.querySelector('.item-desc').value;
+    const qty = parseFloat(row.querySelector('.item-qty').value);
+    const price = parseFloat(row.querySelector('.item-price').value);
+    const total = qty * price;
+    subtotal += total;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${desc}</td>
+    <td>${qty}</td>
+    <td>ZAR${price.toFixed(2)}</td>
+    <td>ZAR${total.toFixed(2)}</td>`;
+    itemsContainer.appendChild(tr);
+  });
+
+  const tax = subtotal * 0.15;
+  const grandTotal = subtotal + tax;
+
+  document.getElementById('subtotal').innerText = `ZAR${subtotal.toFixed(2)}`;
+  document.getElementById('tax').innerText = `ZAR${tax.toFixed(2)}`;
+  document.getElementById('total').innerText = `R${grandTotal.toFixed(2)}`;
+});
+
+// Generate PDF Logic
+const generatePdfBtn = document.getElementById('generate-pdf');
+generatePdfBtn.addEventListener('click', () => {
+  window.print();
+});
+
        </script> 
    </body> 
 </html>
