@@ -374,9 +374,7 @@
                     </div> 
                 </div> 
                  
-                <button class="add-item-btn" id="add-item"> 
-                    <i class="fas fa-plus"></i> Add Item 
-                </button> 
+                <button class="add-item-btn" id="add-item"><i class="fas fa-plus"></i>Add Item</button> 
                  
                 <div class="form-group"> 
                     <label for="notes">Notes</label> 
@@ -445,18 +443,14 @@
                 </div> 
                  
                 <div class="action-buttons"> 
-                    <button class="btn btn-primary" id="update-preview"> 
-                        <i class="fas fa-sync-alt"></i> Update Preview 
-                    </button> 
-                    <button class="btn btn-secondary" id="generate-pdf"> 
-                        <i class="fas fa-file-pdf"></i> Generate PDF 
-                    </button> 
+                    <button class="btn btn-primary" id="update-preview"><i class="fas fa-sync-alt"></i>Update Preview</button> 
+                    <button class="btn btn-secondary" id="generate-pdf"><i class="fas fa-file-pdf"></i>Generate PDF</button> 
                 </div> 
             </div> 
         </div> 
          
         <footer> 
-            <p>Invoice Generator &copy; 2025 | Create professional invoices in seconds</p> 
+            <p>Invoice Generator &copy; 2025 | invoices in seconds</p> 
         </footer> 
     </div> 
  
@@ -573,7 +567,7 @@
             }); 
              
             // Calculate totals 
-            const tax = subtotal * 0.10; // 10% tax 
+            const tax = subtotal * 0.15; // 15% tax 
             const total = subtotal + tax; 
              
             // Update totals 
@@ -623,8 +617,8 @@
                 items.push({ 
                     description: name, 
                     quantity: quantity, 
-                    price: '$' + price.toFixed(2), 
-                    total: '$' + total.toFixed(2) 
+                    price: 'ZAR' + price.toFixed(2), 
+                    total: 'ZAR' + total.toFixed(2) 
                 }); 
             }); 
              
@@ -651,9 +645,9 @@
              
             // Add totals 
             const subtotal = 
-            parseFloat(document.getElementById('subtotal').textContent.replace('$', '')); 
-            const tax = parseFloat(document.getElementById('tax').textContent.replace('$', '')); 
-            const total = parseFloat(document.getElementById('total').textContent.replace('$', '')); 
+            parseFloat(document.getElementById('subtotal').textContent.replace('ZAR', '')); 
+            const tax = parseFloat(document.getElementById('tax').textContent.replace('ZAR', '')); 
+            const total = parseFloat(document.getElementById('total').textContent.replace('ZAR', '')); 
             const finalY = doc.lastAutoTable.finalY + 10; 
              
             doc.setFontSize(12); 
@@ -661,7 +655,7 @@
             doc.text(`Tax (10%): $${tax.toFixed(2)}`, 150, finalY + 6); 
             doc.setFontSize(14); 
             doc.setFont(undefined, 'bold'); 
-            doc.text(`Total: $${total.toFixed(2)}`, 150, finalY + 16); 
+            doc.text(`Total: ZAR{total.toFixed(2)}`, 150, finalY + 16); 
              
             // Add notes 
             doc.setFont(undefined, 'normal'); 
@@ -672,8 +666,7 @@
             doc.text(notesLines, 14, finalY + 36); 
              
             // Save the PDF 
-            const fileName = `invoice_${document.getElementById('preview-invoice
-            number').textContent}.pdf`; 
+            const fileName = `invoice_${document.getElementById('preview-invoice number').textContent}.pdf`; 
             doc.save(fileName); 
         } 
        </script> 
